@@ -19,7 +19,6 @@
 	src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>	
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<!-- 		<script  src="http://code.jquery.com/jquery-latest.min.js"></script> -->
 	
 <title>파티구하기</title>
 </head>
@@ -33,7 +32,6 @@
         <!-- content -->
         <div id="content">
 
-
             <div id="subheader" class="clearfix">
                 <div id="subheader-title">
                     <h2>파티구하기</h2>
@@ -41,13 +39,11 @@
             </div>
 
 
-
             <!-- main -->
             <div id="content_main" class="clearfix">
                 
                 <!-- board -->
                 <div id="board">
-                        <form action="" method="">
 
                     <!-- 서치영역 -->
                     <div id="search_area" class="clearfix">
@@ -56,15 +52,8 @@
                                 <option value="모집중">모집중</option>
                                 <option value="모집완료">모집완료</option>
                             </select>
-                            
-
 
                             <div id="kind">
-                               <!--  <label for="cafe_pick">카페</label>
-                                <input type="checkbox" id="cafe_pick" name="searchPick" value="cafe">
-
-                                <label for="theme_pick">테마</label>
-                                <input type="checkbox" id="theme_pick" name="searchPick" value="theme"> -->
 
                                 <input type="text" name="keyword" value="" placeholder="카페, 테마를 입력해주세요">
 
@@ -72,7 +61,6 @@
                                 
                             </div>
 
-                        </form>
                     </div>
                     <!-- //서치영역 -->
 
@@ -110,16 +98,6 @@
 		                                    <td>${partyVo.userCount } / ${partyVo.reservePerson }</td>
 		                                    <td>${partyVo.partyState }</td>
 	                               </tr>
-		                              <!--  <tr>
-		                                    <td>2</td>
-		                                    <td><a href=""><img src="${pageContext.request.contextPath }/assets/image/party/이순신.jpg" width="80px" height="90px"></a></td>
-		                                    <td>서울 신논현</td>
-		                                    <td>넥스트에디션 / 인터프리터</td>
-		                                    <td>2021-08-27  14:20</td>
-		                                    <td>2 / 4</td>
-		                                    <td>모집중</td>
-		                                </tr> -->
-		                                
 								</c:forEach>
                             </tbody>
                             
@@ -129,9 +107,7 @@
 					
 					<!-- 등록하기 버튼영역 -->
                     <div>
-                     	<%-- <c:if test="${not empty sessionScope.authUser }"> --%> 
 	                        <button type="button" id="submit_button" class="submit_button" data-userno="${sessionScope.authUser.userNo }">등록하기</button>
-                   		<%-- </c:if> --%> 
                     </div>
                     <!-- //등록하기 버튼영역 -->
                     
@@ -325,7 +301,6 @@
 	$("#submit_button").on("click", function() {
 		
 		var userNo = $(this).data("userno");
-		console.log(userNo);
 		
 		if(userNo == "") {
 			
@@ -388,7 +363,7 @@
 	 });
 	
 		
-	 $("#datepicker2").datepicker();
+	$("#datepicker2").datepicker();
 	$("#party_date").datepicker("option", "dateFormat", "yy-mm-dd");
 	$("#datepicker2").datepicker("option", "dateFormat", "yy-mm-dd");
 	$('#datepicker2').datepicker('setDate', 'today');
@@ -402,8 +377,6 @@
 	  	$("#party_theme").empty();
 	  	$("#party_time").empty();
 		
-		console.log(sido);
-		
 		//ajax서버에 요청 (sido 전달)
 		$.ajax({
 			
@@ -415,17 +388,14 @@
 // 			dataType : "json",
 			success : function(cafeList){
 				/*성공시 처리해야될 코드 작성*/
-				console.log(cafeList);
 				
 				$("#party_cafe").append('<option value="" selected="">카페를 선택해 주세요</option>');
 				$("#party_theme").append('<option value="" selected="">테마를 선택해 주세요</option>');
 				$("#party_time").append('<option value="" selected="">시간을 선택해 주세요</option>');
 				
-				
 				for(var i=0; i<cafeList.length; i++) {
 					cafeRender(cafeList[i], "down");
 				}
-				
 				
 			},
 			error : function(XHR, status, error) {
@@ -446,8 +416,8 @@
 			$("#party_cafe").append(str);
 		}
 	};
-	
 	/********************************************************************************************/	
+	
 	
 	/********************************************************************************************/
 	//파티등록 모달창에서 @카페@선택시!
@@ -456,9 +426,6 @@
 		var cafe = $(this).val();
 		var cafeNo = $("#party_cafe option:selected").data("cafeno");
 		$("[name=cafeNo]").val(cafeNo);
-		console.log(cafe);
-		console.log(cafeNo);
-		
 		
 		
 	  	$('#party_theme').empty ();
@@ -474,16 +441,14 @@
 
 // 			dataType : "json",
 			success : function(themeList){
-				/*성공시 처리해야될 코드 작성*/
-				console.log(themeList);
 				
+				/*성공시 처리해야될 코드 작성*/
 				$("#party_theme").append('<option value="" selected="">테마를 선택해 주세요</option>');
 				$("#party_time").append('<option value="" selected="">시간을 선택해 주세요</option>');
 				
 				for(var i=0; i<themeList.length; i++) {
 					themeRender(themeList[i], "down");
 				}
-				
 				
 			},
 			error : function(XHR, status, error) {
@@ -504,8 +469,8 @@
 			$("#party_theme").append(str);
 		}
 	};
-	
 	/********************************************************************************************/
+	
 	
 	/********************************************************************************************/
 	//파티등록 모달창에서 @테마@선택시!
@@ -516,17 +481,11 @@
 		var cafeNo = $("#party_cafe option:selected").data("cafeno");
 		var reserveDate = $("[name='reserveDate']").val();
 		$("[name=themeNo]").val(themeNo);
-		console.log(theme);
-		console.log(themeNo);
-		console.log(cafeNo);
-		console.log(reserveDate);
 		
 		var partyVo = {
 				themeNo: $("#party_theme option:selected").data("themeno"),
 				cafeNo: $("#party_cafe option:selected").data("cafeno")
 		};
-		
-		console.log(partyVo);
 		
 		
 	  	$('#party_time').empty ();
@@ -544,8 +503,6 @@
 // 			dataType : "json",
 			success : function(themeTimeList){
 				/*성공시 처리해야될 코드 작성*/
-				console.log(themeTimeList);
-				
 				$("#party_time").append('<option value="" selected="">시간을 선택해 주세요</option>');
 				
 				for(var i=0; i<themeTimeList.length; i++) {
@@ -583,19 +540,13 @@
 	
 	function resetTime() {
 		var themeNo = $("#party_theme option:selected").data("themeno");
-		console.log(themeNo);
 		
-
 		fetchTimeList(themeNo);
 		
-// 		$("[name='themeNo']").val(themeNo);
-// 		$("[name='themeTime']").val("");
-// 		$("[name='themeTimeNo']").val("");
 	}
 	
 	//리스트 가져오기
 	function fetchTimeList(themeNo) {
-		console.log(themeNo);
 		$("#party_time").empty();
 		$("#party_time").append('<option value="" selected="">시간을 선택해 주세요</option>');
 		$.ajax({
@@ -606,10 +557,8 @@
 			
 			//dataType: "json",
 			success : function(themeTimeList) {
-				console.log(themeTimeList);
 				
 				//화면에 그리기
-				
 				for(var i=0; i<themeTimeList.length; i++) {
 					themeTimeRender(themeTimeList[i], "down");
 				}
@@ -620,15 +569,13 @@
 			}
 		});
 	}
-	
 	/********************************************************************************************/
+	
 	
 	//시간표 클릭시
 	$("#party_time").on("change", function () {
-		console.log("시간 선택");
 			var themeTimeNo = $(this).find("option:selected").data("themetimeno");
 			$('input[name=themeTimeNo]').attr('value', themeTimeNo);
-			
 	});
 	
 	
@@ -646,22 +593,18 @@
 			$(".themeTime").removeClass("reservation_yellow");
 			
 			$(this).addClass("reservation_yellow");
-// 			var themetimeNo = $(this).data("themetimeno");
 			var themeTime = $(this).html();
 			$("[name='themeTime']").val(themeTime);
 
-// 			$('input[name=themeTimeNo]').val(themeTimeNo);
 		}
 		
 	});
-	
-	
 	/********************************************************************************************/
+	
 	
 	/********************************************************************************************/
 	//submit null 예외처리
 	$("#partyWrite_form").on("submit", function(){
-   		console.log("form 전송 클릭!")
    		
    		//날짜 NULL체크
    		var reserveDate = $("#party_date").val();

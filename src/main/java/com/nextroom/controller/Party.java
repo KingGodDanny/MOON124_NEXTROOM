@@ -37,8 +37,6 @@ public class Party {
 	@RequestMapping(value = "/sido", method = {RequestMethod.GET, RequestMethod.POST})
 	public List<PartyVo> cafeList(@RequestParam("sido") String sido) {
 		
-		System.out.println("파티 시도넘어오기: " + sido);
-		
 		List<PartyVo> cafeList = partyService.getCafeList(sido);
 		
 		return cafeList;
@@ -50,8 +48,6 @@ public class Party {
 	@ResponseBody
 	@RequestMapping(value = "/cafe", method = {RequestMethod.GET, RequestMethod.POST})
 	public List<PartyVo> themeList(@RequestParam("cafeNo") int cafeNo) {
-		
-		System.out.println("컨트롤러 파티 카페넘버 넘어오기: " + cafeNo);
 		
 		List<PartyVo> themeList = partyService.getThemeList(cafeNo);
 		
@@ -66,16 +62,12 @@ public class Party {
 	public List<PartyVo> themeTimeList(@RequestParam("themeNo") int themeNo,
 										@RequestParam("reserveDate") String reserveDate) {
 		
-		System.out.println("컨트롤러 파티 테마넘버 넘어오기: " + themeNo + reserveDate);
-		
 		Map<String, Object> themeTimeMap = new HashMap<String, Object>();
 		
 		themeTimeMap.put("themeNo", themeNo);
 		themeTimeMap.put("reserveDate", reserveDate);
 		
 		List<PartyVo> themeTimeList = partyService.getThemeTimeList(themeTimeMap);
-		
-		System.out.println("넘어왓냐?: " + themeTimeList );
 		
 		return themeTimeList;
 	}
@@ -85,28 +77,11 @@ public class Party {
 	//파티등록폼에서 넘어온 정보로 파티리스트 인서트!
 	@RequestMapping(value = "partyWrite", method = {RequestMethod.GET, RequestMethod.POST})
 	public String partyWrite(@ModelAttribute PartyVo partyVo) {
-		System.out.println("파티등록INSERT: " + partyVo);
 		
-		int count = partyService.addPartyList(partyVo);
-		
-		System.out.println("컨트롤러자바인서트: " + count);
+		partyService.addPartyList(partyVo);
 		
 		return "redirect:/party/partyList";
 	}
-	
-	
-	//21-10-01~21-10-02 by 대니
-	//파티등록 리스트 목록 출력하기
-//	@RequestMapping(value = "/partyList", method = {RequestMethod.GET, RequestMethod.POST})
-//	public String partyList(Model model) {
-//		System.out.println("파티컨트롤러: partyList");
-//		
-//		List<PartyVo> partyList = partyService.getPartyList();
-//		
-//		model.addAttribute("partyList", partyList);
-//		
-//		return "party/partyList";
-//	}
 	
 	
 	//21-10-08 by 대니
@@ -116,10 +91,7 @@ public class Party {
 							@RequestParam(value = "crtPage", required = false, defaultValue = "1") int crtPage,
 							@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword,
 							@RequestParam(value = "partyView", required = false, defaultValue = "") String partyView) {
-		System.out.println("파티컨트롤러: partyList");
-		System.out.println("씨알티페이지: " + crtPage);
-		System.out.println("키워드: " + keyword);
-		System.out.println("파티뷰: " + partyView);
+
 		Map<String, Object> partyAllListMap = partyService.getPartyList(crtPage, keyword, partyView);
 		
 		model.addAttribute("partyAllListMap", partyAllListMap);
@@ -132,11 +104,8 @@ public class Party {
 	//리스트에서 넘어온 파티No로 partyRead에 정보 뿌려주기
 	@RequestMapping(value= "/partyRead", method = {RequestMethod.GET, RequestMethod.POST})
 	public String partyRead(@RequestParam("partyNo") int partyNo, Model model) {
-		System.out.println("파티리드 컨트롤러 pNo: " + partyNo);
 		
 		Map<String, Object> pReadMap = partyService.getPartyReadList(partyNo);
-		
-		System.out.println("파티컨트롤러구간 맵이다: " + pReadMap);
 		
 		model.addAttribute("pReadMap", pReadMap);
 		
@@ -149,7 +118,6 @@ public class Party {
 	@ResponseBody
 	@RequestMapping(value="/partyDelete", method = {RequestMethod.GET, RequestMethod.POST})
 	public int partyDelete(@RequestParam("partyNo") int partyNo) {
-		System.out.println("파티삭제위한 파티NO: " + partyNo);
 		
 		int count = partyService.partyDelete(partyNo);
 		
@@ -162,7 +130,6 @@ public class Party {
 	@ResponseBody
 	@RequestMapping(value = "/addPartyApplicant", method = {RequestMethod.GET, RequestMethod.POST})
 	public boolean addPartyApplicant(@ModelAttribute PartyVo partyVo) {
-		System.out.println("참가자 파티참여: " + partyVo);
 		
 		boolean result = partyService.addPartyApplicant(partyVo);
 		
@@ -175,7 +142,6 @@ public class Party {
 	@ResponseBody
 	@RequestMapping(value = "/cancelPartyApplicant", method = {RequestMethod.GET, RequestMethod.POST})
 	public boolean cancelPartyApplicant(@ModelAttribute PartyVo partyVo) {
-		System.out.println("참가자 참가취소: " + partyVo);
 		
 		boolean result = partyService.cancelPartyApplicant(partyVo);
 		
@@ -188,7 +154,6 @@ public class Party {
 	@ResponseBody
 	@RequestMapping(value = "/agreeMember", method = {RequestMethod.GET, RequestMethod.POST})
 	public boolean agreeMember(@ModelAttribute PartyVo partyVo) {
-		System.out.println("어그리멤버: " + partyVo);
 		
 		boolean result = partyService.agreeMember(partyVo);
 		
@@ -201,8 +166,6 @@ public class Party {
 	@ResponseBody
 	@RequestMapping(value = "/exceptDetailMember", method = {RequestMethod.GET, RequestMethod.POST})
 	public boolean exceptDetailMember(@ModelAttribute PartyVo partyVo) {
-		
-		System.out.println("파티디테일 멤버추방: " + partyVo);
 		
 		boolean result = partyService.exceptDetailMember(partyVo);
 		
@@ -217,8 +180,6 @@ public class Party {
 	@RequestMapping(value = "/partyComplete", method = {RequestMethod.GET, RequestMethod.POST})
 	public boolean partyComplete(@ModelAttribute PartyVo partyVo) {
 		
-		System.out.println("모집완료버튼을 클릭했을때: " + partyVo);
-		
 		boolean result = partyService.partyCompleteUdate(partyVo);
 		
 		return result;
@@ -229,8 +190,6 @@ public class Party {
 	@ResponseBody
 	@RequestMapping(value = "/partyWorking", method = {RequestMethod.GET, RequestMethod.POST})
 	public boolean partyWorking(@ModelAttribute PartyVo partyVo) {
-		
-		System.out.println("모집중버튼을 클릭했을때: " + partyVo);
 		
 		boolean result = partyService.partyWorkingUdate(partyVo);
 		
@@ -244,30 +203,11 @@ public class Party {
 	@RequestMapping(value = "/partyReserveCheck", method = {RequestMethod.GET, RequestMethod.POST})
 	public boolean partyReserveCheck(@ModelAttribute PartyVo partyVo) {
 		
-		System.out.println("예약하기 버튼클릭: " + partyVo);
-		
 		boolean result = partyService.partyReserveCheck(partyVo);
 		
 		System.out.println(result);
 		
 		return result;
-	}
-	
-	
-	//21-10-10 by 대니
-	//방장이 모집완료된 파티의 예약하기를 눌렀을 경우
-	@ResponseBody
-	@RequestMapping(value = "/partyReserve", method = {RequestMethod.GET, RequestMethod.POST})
-	public String partyReserve(@ModelAttribute PartyVo partyVo, Model model) {
-		
-		System.out.println("모집완료된 예약하기버튼: " + partyVo);
-		
-		
-		Map<String, Object> partyReserveInfo = partyService.partyReserve(partyVo);
-		
-		model.addAttribute("partyReserveInfo", partyReserveInfo);
-		
-		return null;
 	}
 	
 	
