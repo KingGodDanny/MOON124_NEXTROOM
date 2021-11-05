@@ -76,9 +76,7 @@ public class MypageController {
 	public String mypageParty(HttpSession session, Model model,
 							  @RequestParam(value = "crtPage", required = false, defaultValue = "1") int crtPage,
 							  @RequestParam(value = "partyJoinSelect", required = false, defaultValue = "") String partyJoinSelect) {
-		System.out.println("mypage/partyManage");
 		
-		System.out.println(partyJoinSelect);
 		// 세션(로그인한 사용자)의 번호
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 		int userNo = authUser.getUserNo();

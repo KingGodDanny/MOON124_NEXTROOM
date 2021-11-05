@@ -37,14 +37,12 @@ public class UserService {
 		return cafeNo;
 	}
 	
-	//회원가입
+	//회원가입 by 대니
 	public void addUser(UserVo userVo) {
-		System.out.println("유서비-회원추가   "+userVo);
 		
 		MultipartFile file = userVo.getProfileImg();
 		//파일사이즈
 		long fileSize = file.getSize();
-		System.out.println("파일싸이즈: " + fileSize);
 		
 		if(fileSize > 0) {	
 			
@@ -53,19 +51,15 @@ public class UserService {
 
 		// 원래 파일 이름
 		String orgName = file.getOriginalFilename();
-		System.out.println("오알지: " + orgName);
 		
 		// 확장자
 		String exName = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-
 		
 		// 저장파일이름(관리 때문에 겹치지 않는 새이름을 부여해야한다.)
 		String saveName = System.currentTimeMillis() + UUID.randomUUID().toString() + exName;
 		
-		
 		// 파일패스(경로)
 		String filePath = saveDir + saveName;
-
 		
 		// 파일을 서버의 하드디스크에 저장
 		try {

@@ -35,12 +35,6 @@ public class MypageService {
 		//crtPage 계산(- 값일때 1page 처리)
 		crtPage = (crtPage > 0) ? crtPage : (crtPage = 1); //삼항연산자; 아래랑 같은 논리
 		
-//		if(crtPage > 0) {
-//			//crtPage = crtPage;
-//		} else {
-//			crtPage = 1;
-//		}
-		
 		
 		//시작번호 계산하기
 		int startRnum = (crtPage-1) * listCnt + 1;
@@ -72,7 +66,6 @@ public class MypageService {
 			PartyVo cafeThemeVo = new PartyVo(cafeNo, themeNo);
 			
 			partyVo = (PartyVo) partyDao.getCafeThemeNoList(cafeThemeVo);
-			System.out.println("테마카페노로 가져온 정보들: " + partyVo);
 			
 			String themeName = partyVo.getThemeName();
 			String themeImg = partyVo.getThemeImg();
@@ -89,7 +82,6 @@ public class MypageService {
 			
 			partyManageList.get(i).setUserCount(userCount);
 			
-			System.out.println("파티관리: " + partyManageList);
 		}
 		
 		//////////////////////////////////////////////
@@ -117,6 +109,7 @@ public class MypageService {
 		boolean next = false;
 		if(endPageBtnNo * listCnt < totalCount) {
 		next = true;
+		
 		} else {
 		//	다음 화살표 버튼이 없을때 endPageBtnNo 를 다시 계산해야한다.
 		//	전체 글의 갯수/한페이지의 글갯수(10)
@@ -126,14 +119,11 @@ public class MypageService {
 		// 127	/ 10.0  = 12.7	-->올림	-> 13.0 --> 13
 		}
 		
-		
 		//이전 화살표 표현 유무
 		boolean prev = false;
 		if(startPageBtnNo !=1) {
 		prev = true;
 		}		
-		
-		
 		
 		
 		//맵으로 리턴
